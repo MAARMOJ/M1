@@ -1,0 +1,122 @@
+#include<stdio.h>
+#define MAX 10
+
+int m,n,avail[MAX],alloc[MAX][MAX],
+    max[MAX][MAX],need[MAX][MAX];
+
+void accept()
+{
+ int i,j;
+
+ printf("Enter no.of process:");
+ scanf("%d",&n);
+
+ printf("Enter no.of resource types:");
+ scanf("%d",&m);
+ 
+
+printf("Enter no.of allocated resources of each resource type by each process:\n");
+
+ for(i=0;i<n;i++)
+ {
+  printf("P%d:\n",i);
+  for(j=0;j<m;j++)
+  {
+   printf("%c:",65+j);
+   scanf("%d",&alloc[i][j]);
+  }
+ }
+
+ printf("Enter no.of maximum resources of each resource type by each process:\n");   
+ 
+ for(i=0;i<n;i++)
+ {
+  printf("P%d:\n",i);
+  for(j=0;j<m;j++)
+  {
+   printf("%c:",65+j);
+   scanf("%d",&max[i][j]);
+  }
+ }
+}
+
+
+void calc_need()
+{
+ int i,j;
+
+ for(i=0;i<n;i++)
+  for(j=0;j<m;j++)
+   need[i][j]=max[i][j]-alloc[i][j];
+}
+
+void printt()
+{
+ int i,j;
+ 
+ printf("\tAllocation\tMax\tNeed\n\t");
+
+ for(i=0;i<3;i++)
+ {
+  for(j=0;j<m;j++)
+   printf("%3c",65+j);
+  printf("\t");
+  
+ }
+
+ printf("\n");
+ for(i=0;i<n;i++)
+ {
+  printf("P%d\t",i);
+  for(j=0;j<m;j++)
+   printf("%3d",alloc[i][j]);
+  printf("\t");
+  for(j=0;j<m;j++)
+   printf("%3d",max[i][j]);
+  printf("\t");
+  for(j=0;j<m;j++)
+   printf("%3d",need[i][j]);
+  printf("\n");
+
+}
+ 
+}
+int main()
+{
+ int i,j,pno;
+ accept();
+ int choice;
+ do{
+    printf("\n Press 1 Enter availble matrix \n Press 2 to Display allocation and max ,need \n Press 3 to Display Avilable \n press 4 to Exit ");
+    printf("\n Enter your choice:");
+    scanf("%d", &choice);
+ 
+    switch (choice)
+    {
+        case 1: 
+                 printf("Enter Available:\n");
+                    for(i=0;i<m;i++)
+                    {
+                        scanf("%d",&avail[i]);
+                    }
+                break;
+        case 2:
+                calc_need();
+                 printt();
+                 break;
+        case 3: 
+                printf("Available\n");
+                  for(j=0;j<m;j++)
+                     printf("%3d",avail[j]);
+                    printf("\t");
+                    printf("\n");
+                    break;
+       exit(1);
+        default:
+                printf("\nInvalid choice\n");
+        break; 
+    }
+ }
+ while(choice!=0);
+ return 0;
+}
